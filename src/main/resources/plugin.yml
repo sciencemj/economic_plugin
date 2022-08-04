@@ -1,0 +1,7 @@
+name: Shop
+version: '${version}'
+main: sciencemj.shop.Shop
+api-version: 1.19
+authors: [ sciencemj ]
+description: shop plugin for mc
+website: https://github.com/sciencemj
