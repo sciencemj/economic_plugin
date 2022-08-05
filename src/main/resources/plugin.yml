@@ -5,3 +5,8 @@ api-version: 1.19
 authors: [ sciencemj ]
 description: shop plugin for mc
 website: https://github.com/sciencemj
+
+commands:
+  money:
+    description: manage players money status
+    usage: /money <player> <set|add|get> <amount>
