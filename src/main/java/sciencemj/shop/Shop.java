@@ -26,16 +26,17 @@ public final class Shop extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new ShopEventHandler(), this); //add event listener
         this.getCommand("money").setExecutor((CommandExecutor) new ShopCommand());
 
-        for(Player p : this.getServer().getOnlinePlayers()){
+        for (Player p : this.getServer().getOnlinePlayers()) {
             p.sendMessage("hi");
         }
+        // =======================================================================================
         inv = Bukkit.createInventory(null, 7, "WALLET");
-        itemFill(inv, createItem(Material.BLUE_STAINED_GLASS, ""), 1,7); //fill inv 1 to 7
+        itemFill(inv, createItem(Material.BLUE_STAINED_GLASS, ""), 1, 7); //fill inv 1 to 7
         inv.setItem(3, createItem(Material.GOLD_NUGGET, "잔액"));
-
+        // =======================================================================================
     }
 
-    public ItemStack createItem(Material material, @NotNull String name) {
+    public static ItemStack createItem(Material material, @NotNull String name) {
         ItemStack itemStack = new ItemStack(material, 1);
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(name);
@@ -43,12 +44,20 @@ public final class Shop extends JavaPlugin {
         return itemStack;
     }
 
-    public void itemFill(Inventory inventory, ItemStack item, int countStart, int countEnd) { //[1,2,3,4,5,6,7...]
+    public static void itemFill(Inventory inventory, ItemStack item, int countStart, int countEnd) { //[1,2,3,4,5,6,7...]
         if (countEnd == countStart - 1) {
             return;
         }
         inventory.setItem(countEnd - 1, item);
         itemFill(inventory, item, countStart, countEnd - 1);
+    }
+
+    public static Inventory newInv(){
+        Inventory inven = Bukkit.createInventory(null, 7, "WALLET");
+        itemFill(inven, createItem(Material.BLUE_STAINED_GLASS, ""), 1, 7);
+        inven.setItem(3, createItem(Material.GOLD_NUGGET, "잔액"));
+
+        return inven;
     }
 
     @Override

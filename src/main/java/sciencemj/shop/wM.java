@@ -19,7 +19,9 @@ public class wM {
     }
 
     public static Double get(Player p){
-        return wallet.get(p);
+        if(wallet.containsKey(p))
+            return wallet.get(p);
+        return null;
     }
 
 }
