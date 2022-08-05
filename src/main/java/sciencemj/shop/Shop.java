@@ -30,9 +30,9 @@ public final class Shop extends JavaPlugin {
             p.sendMessage("hi");
         }
         // =======================================================================================
-        inv = Bukkit.createInventory(null, 7, "WALLET");
-        itemFill(inv, createItem(Material.BLUE_STAINED_GLASS, ""), 1, 7); //fill inv 1 to 7
-        inv.setItem(3, createItem(Material.GOLD_NUGGET, "잔액"));
+        inv = Bukkit.createInventory(null, 9, "WALLET");
+        itemFill(inv, createItem(Material.BLUE_STAINED_GLASS_PANE, ""), 1, 9); //fill inv 1 to 7
+        inv.setItem(4, createItem(Material.GOLD_NUGGET, "잔액"));
         // =======================================================================================
     }
 
@@ -53,9 +53,9 @@ public final class Shop extends JavaPlugin {
     }
 
     public static Inventory newInv(){
-        Inventory inven = Bukkit.createInventory(null, 7, "WALLET");
-        itemFill(inven, createItem(Material.BLUE_STAINED_GLASS, ""), 1, 7);
-        inven.setItem(3, createItem(Material.GOLD_NUGGET, "잔액"));
+        Inventory inven = Bukkit.createInventory(null, 9, "WALLET");
+        itemFill(inven, createItem(Material.BLUE_STAINED_GLASS_PANE, ""), 1, 9);
+        inven.setItem(4, createItem(Material.GOLD_NUGGET, "잔액"));
 
         return inven;
     }

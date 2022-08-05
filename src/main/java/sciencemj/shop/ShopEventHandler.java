@@ -27,7 +27,7 @@ public class ShopEventHandler implements Listener {
                 playerInv.put(p, Shop.newInv());
             if (wM.get(p) == null)
                 wM.set(p, 0D);
-            playerInv.get(p).setItem(3, Shop.createItem(Material.GOLD_NUGGET,
+            playerInv.get(p).setItem(4, Shop.createItem(Material.GOLD_NUGGET,
                     ChatColor.YELLOW + "잔액: " + wM.get(p).intValue()));
             p.openInventory(playerInv.get(p));
         }
