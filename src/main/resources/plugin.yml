@@ -1,9 +1,9 @@
 name: Shop
 version: '${version}'
-main: sciencemj.shop.Shop
+main: sciencemj.shop.Ecnm
 api-version: 1.19
 authors: [ sciencemj ]
-description: shop plugin for mc
+description: economic plugin for mc
 website: https://github.com/sciencemj
 
 commands:

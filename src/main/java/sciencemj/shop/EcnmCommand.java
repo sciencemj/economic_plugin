@@ -6,8 +6,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import sciencemj.shop.manage.wM;
 
-public class ShopCommand implements CommandExecutor {
+public class EcnmCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         if (cmd.getName().equals("money")){
@@ -27,6 +28,7 @@ public class ShopCommand implements CommandExecutor {
                             }
                             case "add" -> {
                                 wM.add(p, amount);
+                                wM.saveData();
                                 sender.sendMessage(p.getName() + "'s money is now: " + wM.get(p));
                             }
                         }
