@@ -5,22 +5,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class Shop {
-    public static int entityId;
+    public String uuid;
+
+    public boolean buying;
     public Inventory frontInv;
     public Inventory backInv;
     public Player owner;
 
-    public Shop(int entityId, Inventory frontInv, Inventory backInv, Player owner){
-        this.entityId = entityId;
+    public Shop(String uuid, Inventory frontInv, Inventory backInv, Player owner, boolean buying){
+        this.uuid = uuid;
         this.frontInv = frontInv;
         this.backInv = backInv;
         this.owner = owner;
-    }
-
-    public static boolean equals_id(int entityId_){
-        if (entityId == entityId_)
-            return true;
-        else
-            return false;
+        this.buying = buying;
     }
 }

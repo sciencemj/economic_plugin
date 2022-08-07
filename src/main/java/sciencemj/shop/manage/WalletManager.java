@@ -9,8 +9,8 @@ public class WalletManager {
     public static HashMap<String, Double> wallet = new HashMap<>();
 
     public static void add(Player p, Double amount){
-        if (wallet.containsKey(p))
-            wallet.put(p.getName(), wallet.get(p) + amount);
+        if (wallet.containsKey(p.getName()))
+            wallet.put(p.getName(), wallet.get(p.getName()) + amount);
         else
             wallet.put(p.getName(), amount);
     }
@@ -26,7 +26,7 @@ public class WalletManager {
     }
 
     public static void saveData(){
-        Ecnm.config.addDefault("wallet", wallet);
+        Ecnm.config.set("wallet", wallet);
     }
 
     public static void loadData(){

@@ -23,7 +23,7 @@ public final class Ecnm extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         PluginDescriptionFile file = this.getDescription();
-        getLogger().info(file.getName() + "version:" + file.getVersion() + " loaded"); //print description
+        getLogger().info(file.getName() + " version:" + file.getVersion() + " loaded"); //print description
         //load config---------------------------------------------------------------------------
         saveConfig();
         config = this.getConfig();
@@ -39,16 +39,20 @@ public final class Ecnm extends JavaPlugin {
         //--------------------------------------------------------------------------------------
         this.getServer().getPluginManager().registerEvents(new EcnmEventHandler(), this); //add event listener
         this.getCommand("money").setExecutor((CommandExecutor) new EcnmCommand());
+        this.getCommand("store").setExecutor((CommandExecutor) new EcnmCommand());
 
         for (Player p : this.getServer().getOnlinePlayers()) {
             p.sendMessage("hi");
         }
 
-        // =======================================================================================
-        inv = Bukkit.createInventory(null, 9, "WALLET");
-        itemFill(inv, createItem(Material.BLUE_STAINED_GLASS_PANE, ""), 1, 9); //fill inv 1 to 7
-        inv.setItem(4, createItem(Material.GOLD_NUGGET, "잔액"));
-        // =======================================================================================
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                EcnmEventHandler.updateStore();
+                WalletManager.saveData();
+                ShopManager.saveData();
+            }
+        },100, 6000);
 
     }
 
@@ -71,9 +75,8 @@ public final class Ecnm extends JavaPlugin {
     public static Inventory newInv(){
         Inventory inven = Bukkit.createInventory(null, 9, "WALLET");
         itemFill(inven, createItem(Material.BLUE_STAINED_GLASS_PANE, " "), 1, 9);
-        inven.setItem(0, createItem(Material.BUNDLE, "상점 만들기"));
+        //inven.setItem(0, createItem(Material.BUNDLE, "상점 만들기"));
         inven.setItem(4, createItem(Material.GOLD_NUGGET, "잔액"));
-        inven.setItem(0, createItem(Material.PAPER, "상점 만들기"));
         return inven;
     }
 

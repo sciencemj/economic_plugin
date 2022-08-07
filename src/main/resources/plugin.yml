@@ -1,5 +1,5 @@
 name: ECONOMY
-version: '${version}'
+version: '1.0 beta'
 main: sciencemj.shop.Ecnm
 api-version: 1.19
 authors: [ sciencemj ]
@@ -10,3 +10,6 @@ commands:
   money:
     description: manage players money status
     usage: /money <player> <set|add|get> <amount>
+  store:
+    description: manage stor
+    usage: /store <set>
