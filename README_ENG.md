@@ -1,4 +1,4 @@
-## ECONOMY PLUGIN
+# ECONOMY PLUGIN
 
 ## What is this plugin?
 this is economy plugins for minecraft version 1.19
