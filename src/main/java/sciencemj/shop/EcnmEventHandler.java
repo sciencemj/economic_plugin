@@ -5,15 +5,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
-import sciencemj.shop.manage.wM;
+import sciencemj.shop.manage.ShopManager;
+import sciencemj.shop.manage.WalletManager;
 import sciencemj.shop.object.Shop;
 
 import java.util.ArrayList;
@@ -23,7 +26,6 @@ import java.util.HashMap;
 public class EcnmEventHandler implements Listener {
 
     public static HashMap<Player, Inventory> playerInv = new HashMap<>();
-    public static ArrayList<Shop> shops = new ArrayList<>();
     @EventHandler
     public void onPlayerLeftClick(PlayerInteractEvent e){
         Player p = e.getPlayer();
@@ -31,10 +33,10 @@ public class EcnmEventHandler implements Listener {
             //open wallet inventory
             if(!playerInv.containsKey(p))
                 playerInv.put(p, Ecnm.newInv());
-            if (wM.get(p) == null)
-                wM.set(p, 0D);
+            if (WalletManager.get(p) == null)
+                WalletManager.set(p, 0D);
             playerInv.get(p).setItem(4, Ecnm.createItem(Material.GOLD_NUGGET,
-                    ChatColor.YELLOW + "잔액: " + wM.get(p).intValue()));
+                    ChatColor.YELLOW + "잔액: " + WalletManager.get(p).intValue()));
             p.openInventory(playerInv.get(p));
         }
     }
@@ -47,18 +49,31 @@ public class EcnmEventHandler implements Listener {
                 Inventory frontInv = Bukkit.createInventory(null, 9, "STORE");
                 Inventory backInv = Bukkit.createInventory(null, 27, "BACK_STORE");
                 Entity merchant = p.getWorld().spawnEntity(p.getLocation(), EntityType.VILLAGER);
-                Shop shop = new Shop(merchant, frontInv, backInv, p);
-                shops.add(shop);
+                merchant.setInvulnerable(true);
+                merchant.setCustomNameVisible(true);
+                merchant.setCustomName("상점");
+                ((LivingEntity) merchant).setAI(false);
+                Shop shop = new Shop(merchant.getEntityId(), frontInv, backInv, p);
+                ShopManager.shops.put(merchant.getEntityId(), shop);
             }
             e.setCancelled(true);
         }
     }
 
     @EventHandler
+    public void onPlayerInteractOnEntity(PlayerInteractEntityEvent e){
+        Entity entity = e.getRightClicked();
+        Player p = e.getPlayer();
+        if (ShopManager.shops.containsKey(entity.getEntityId())){
+            p.openInventory(ShopManager.shops.get(entity.getEntityId()).frontInv);
+        }
+    }
+
+    @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
-        if(wM.get(p) == null){
-            wM.set(p, 0D);
+        if(WalletManager.get(p) == null){
+            WalletManager.set(p, 0D);
             playerInv.put(p, Ecnm.newInv());
         }
     }

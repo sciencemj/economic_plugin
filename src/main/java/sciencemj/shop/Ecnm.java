@@ -11,7 +11,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import sciencemj.shop.manage.wM;
+import sciencemj.shop.manage.ShopManager;
+import sciencemj.shop.manage.WalletManager;
 
 import java.io.File;
 
@@ -32,7 +33,8 @@ public final class Ecnm extends JavaPlugin {
             config.options().copyDefaults(true);
         }else {
             getLogger().info("콘피그 파일 안 비었음");
-            wM.loadData(); //load wallet data
+            WalletManager.loadData(); //load wallet data
+            ShopManager.loadData();
         }
         //--------------------------------------------------------------------------------------
         this.getServer().getPluginManager().registerEvents(new EcnmEventHandler(), this); //add event listener
@@ -68,7 +70,8 @@ public final class Ecnm extends JavaPlugin {
 
     public static Inventory newInv(){
         Inventory inven = Bukkit.createInventory(null, 9, "WALLET");
-        itemFill(inven, createItem(Material.BLUE_STAINED_GLASS_PANE, ""), 1, 9);
+        itemFill(inven, createItem(Material.BLUE_STAINED_GLASS_PANE, " "), 1, 9);
+        inven.setItem(0, createItem(Material.BUNDLE, "상점 만들기"));
         inven.setItem(4, createItem(Material.GOLD_NUGGET, "잔액"));
         inven.setItem(0, createItem(Material.PAPER, "상점 만들기"));
         return inven;
@@ -77,7 +80,8 @@ public final class Ecnm extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        wM.saveData();
+        WalletManager.saveData();
+        ShopManager.saveData();
         saveConfig();
     }
 }

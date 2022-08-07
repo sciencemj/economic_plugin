@@ -1,14 +1,11 @@
 package sciencemj.shop.manage;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import sciencemj.shop.Ecnm;
-import sciencemj.shop.manage.DataManager;
 
 import java.util.HashMap;
-import java.util.UUID;
 
-public class wM {
+public class WalletManager {
     public static HashMap<String, Double> wallet = new HashMap<>();
 
     public static void add(Player p, Double amount){
